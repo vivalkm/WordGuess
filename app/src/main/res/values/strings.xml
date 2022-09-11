@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Wordle</string>
+    <string name="winText">Congratulations! You won!</string>
+    <string name="loseText">You didn\'t make it this time</string>
+    <string name="editTextPlaceholder">Enter 4 letter guess here</string>
+    <string name="guessBtnText">Guess!</string>
+    <string name="resetBtnText">Reset!</string>
+</resources>
