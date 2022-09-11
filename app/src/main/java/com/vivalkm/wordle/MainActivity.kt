@@ -2,11 +2,16 @@ package com.vivalkm.wordle
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import androidx.core.view.isVisible
+import nl.dionsegijn.konfetti.KonfettiView
+import nl.dionsegijn.konfetti.models.Shape
+import nl.dionsegijn.konfetti.models.Shape.Companion.RECT
+import nl.dionsegijn.konfetti.models.Size
 
 class MainActivity : AppCompatActivity() {
     private lateinit var guess1TextView: TextView
@@ -25,15 +30,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var targetWordTextView: TextView
     private lateinit var textViews: Array<TextView>
 
+    private lateinit var winStreakTextView: TextView
+
     private lateinit var winImage: ImageView
     private lateinit var loseImage: ImageView
 
     private lateinit var guessBtn: Button
     private lateinit var resetBtn: Button
     private lateinit var guessWordEditText: EditText
+    private lateinit var confettiView: KonfettiView
 
     private lateinit var targetWord: String
     private var counter = 0
+    private var winStreak = 0
 
     private lateinit var guessWord1: String
     private lateinit var guessWord2: String
@@ -83,7 +92,8 @@ class MainActivity : AppCompatActivity() {
             resultTextView
         )
 
-        newGame()
+        winStreakTextView = findViewById(R.id.winStreakTextView)
+        confettiView = findViewById(R.id.confettiView)
 
         guessBtn.setOnClickListener {
             curGuessWord = guessWordEditText.text.toString().uppercase()
@@ -111,6 +121,10 @@ class MainActivity : AppCompatActivity() {
                         guess1WordTextView.isVisible = true
                         guess1CheckTextView.isVisible = true
                         guess1CheckResultTextView.isVisible = true
+
+                        if (targetWord == curGuessWord) {
+                            showResult()
+                        }
                     }
                     2 -> {
                         guessWord2 = curGuessWord
@@ -124,6 +138,10 @@ class MainActivity : AppCompatActivity() {
                         guess2WordTextView.isVisible = true
                         guess2CheckTextView.isVisible = true
                         guess2CheckResultTextView.isVisible = true
+
+                        if (targetWord == curGuessWord) {
+                            showResult()
+                        }
                     }
                     else -> {
                         guessWord3 = curGuessWord
@@ -138,10 +156,6 @@ class MainActivity : AppCompatActivity() {
                         guess3CheckTextView.isVisible = true
                         guess3CheckResultTextView.isVisible = true
 
-                        targetWordTextView.isVisible = true
-                        guessBtn.isVisible = false
-                        resetBtn.isVisible = true
-
                         showResult()
                     }
                 }
@@ -150,7 +164,12 @@ class MainActivity : AppCompatActivity() {
 
         resetBtn.setOnClickListener {
             newGame()
+            confettiView.reset()
+            hideKeyboard(this)
+            guessWordEditText.setText("")
         }
+
+        newGame()
     }
 
     /**
@@ -158,12 +177,34 @@ class MainActivity : AppCompatActivity() {
      */
     private fun showResult() {
         if (targetWord == curGuessWord) {
+            // confetti animation
+            confettiView.build()
+                .addColors(Color.RED, Color.YELLOW, Color.MAGENTA)
+                .setDirection(0.0, 359.0)
+                .setSpeed(1f, 5f)
+                .setFadeOutEnabled(true)
+                .setTimeToLive(2000L)
+                .addShapes(Shape.Square, Shape.Circle)
+                .addSizes(Size(12, 5F))
+                .setPosition(-50f, confettiView.width + 50f, -50f, -50f)
+                .streamFor(300, 5000L)
+
             resultTextView.text = getString(R.string.winText)
             winImage.isVisible = true
+
+            // win streak message
+            winStreak++
+            winStreakTextView.isVisible = true
+            winStreakTextView.text = "You've made $winStreak wins in a row!"
         } else {
             resultTextView.text = getString(R.string.loseText)
             loseImage.isVisible = true
+            winStreak = 0
+            winStreakTextView.isVisible = false
         }
+        targetWordTextView.isVisible = true
+        guessBtn.isVisible = false
+        resetBtn.isVisible = true
         resultTextView.isVisible = true
     }
 
@@ -189,7 +230,6 @@ class MainActivity : AppCompatActivity() {
 
         winImage.isVisible = false
         loseImage.isVisible = false
-
     }
 
     /**
@@ -227,7 +267,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Return true if the given word contains excatly 4 alphabetical letters
+     * Return true if the given word contains exactly 4 alphabetical letters
      */
     private fun isValidWord(word: String): Boolean {
         if (word.length != 4) return false
