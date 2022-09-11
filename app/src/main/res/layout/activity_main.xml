@@ -163,16 +163,16 @@
 
     <TextView
         android:id="@+id/targetWordTextView"
-        android:layout_width="148dp"
-        android:layout_height="59dp"
-        android:textSize="40sp"
-        android:textColor="@color/purple_500"
+        android:layout_width="303dp"
+        android:layout_height="119dp"
+        android:autoSizeTextType="uniform"
         android:textAlignment="center"
+        android:textColor="@color/purple_500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guess3CheckTextView"
-        app:layout_constraintVertical_bias="0.239" />
+        app:layout_constraintTop_toBottomOf="@+id/guessWordEditText"
+        app:layout_constraintVertical_bias="0.417" />
 
     <TextView
         android:id="@+id/resultTextView"

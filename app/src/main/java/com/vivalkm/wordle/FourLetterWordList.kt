@@ -2,19 +2,95 @@ package com.vivalkm.wordle
 
 object FourLetterWordList {
     // List of most common 4 letter words from: https://7esl.com/4-letter-words/
-    var fourLetterWords =
-//        "Area,Army,Baby,Back,Ball,Band,Bank,Base,Bill,Body,Book,Call,Card,Care,Case,Cash,City,Club,Cost,Date,Deal,Door,Duty,East,Edge,Face,Fact,Farm,Fear,File,Film,Fire,Firm,Fish,Food,Foot,Form,Fund,Game,Girl,Goal,Gold,Hair,Half,Hall,Hand,Head,Help,Hill,Home,Hope,Hour,Idea,Jack,John,Kind,King,Lack,Lady,Land,Life,Line,List,Look,Lord,Loss,Love,Mark,Mary,Mind,Miss,Move,Name,Need,News,Note,Page,Pain,Pair,Park,Part,Past,Path,Paul,Plan,Play,Post,Race,Rain,Rate,Rest,Rise,Risk,Road,Rock,Role,Room,Rule,Sale,Seat,Shop,Show,Side,Sign,Site,Size,Skin,Sort,Star,Step,Task,Team,Term,Test,Text,Time,Tour,Town,Tree,Turn,Type,Unit,User,View,Wall,Week,West,Wife,Will,Wind,Wine,Wood,Word,Work,Year,Bear,Beat,Blow,Burn,Call,Care,Cast,Come,Cook,Cope,Cost,Dare,Deal,Deny,Draw,Drop,Earn,Face,Fail,Fall,Fear,Feel,Fill,Find,Form,Gain,Give,Grow,Hang,Hate,Have,Head,Hear,Help,Hide,Hold,Hope,Hurt,Join,Jump,Keep,Kill,Know,Land,Last,Lead,Lend,Lift,Like,Link,Live,Look,Lose,Love,Make,Mark,Meet,Mind,Miss,Move,Must,Name,Need,Note,Open,Pass,Pick,Plan,Play,Pray,Pull,Push,Read,Rely,Rest,Ride,Ring,Rise,Risk,Roll,Rule,Save,Seek,Seem,Sell,Send,Shed,Show,Shut,Sign,Sing,Slip,Sort,Stay,Step,Stop,Suit,Take,Talk,Tell,Tend,Test,Turn,Vary,View,Vote,Wait,Wake,Walk,Want,Warn,Wash,Wear,Will,Wish,Work,Able,Back,Bare,Bass,Blue,Bold,Busy,Calm,Cold,Cool,Damp,Dark,Dead,Deaf,Dear,Deep,Dual,Dull,Dumb,Easy,Evil,Fair,Fast,Fine,Firm,Flat,Fond,Foul,Free,Full,Glad,Good,Grey,Grim,Half,Hard,Head,High,Holy,Huge,Just,Keen,Kind,Last,Late,Lazy,Like,Live,Lone,Long,Loud,Main,Male,Mass,Mean,Mere,Mild,Nazi,Near,Neat,Next,Nice,Okay,Only,Open,Oral,Pale,Past,Pink,Poor,Pure,Rare,Real,Rear,Rich,Rude,Safe,Same,Sick,Slim,Slow,Soft,Sole,Sore,Sure,Tall,Then,Thin,Tidy,Tiny,Tory,Ugly,Vain,Vast,Very,Vice,Warm,Wary,Weak,Wide,Wild,Wise,Zero,Ably,Afar,Anew,Away,Back,Dead,Deep,Down,Duly,Easy,Else,Even,Ever,Fair,Fast,Flat,Full,Good,Half,Hard,Here,High,Home,Idly,Just,Late,Like,Live,Long,Loud,Much,Near,Nice,Okay,Once,Only,Over,Part,Past,Real,Slow,Solo,Soon,Sure,That,Then,This,Thus,Very,When,Wide"
-        "abcd"
+    var fourLetterWords = arrayOf(
+        "Area","Army","Baby","Back","Ball","Band","Bank","Base","Bill","Body","Book","Call","Card","Care","Case","Cash","City","Club","Cost","Date","Deal","Door","Duty","East","Edge","Face","Fact","Farm","Fear","File","Film","Fire","Firm","Fish","Food","Foot","Form","Fund","Game","Girl","Goal","Gold","Hair","Half","Hall","Hand","Head","Help","Hill","Home","Hope","Hour","Idea","Jack","John","Kind","King","Lack","Lady","Land","Life","Line","Loss","Love","Mark","Mary","Mind","Miss","Move","Name","Need","News","Note","Page","Pain","Pair","Park","Part","Past","Path")
 
-    // Returns a list of four letter words as a list
-    fun getAllFourLetterWords(): List<String> {
-        return fourLetterWords.split(",")
-    }
+    var fourLetterWordsHint = arrayOf(
+        "A measure of the extent of a surface; it is measured in square units.",
+        "A large, highly organized military force, concerned mainly with ground (rather than air or naval) operations.",
+        "A very young human, particularly from birth to a couple of years old or until walking is fully mastered.",
+        "The rear of the body, especially the part between the neck and the end of the spine and opposite the chest and belly.",
+        "A solid or hollow sphere, or roughly spherical mass.",
+        "A strip of material used for strengthening or coupling.",
+        "An institution where one can place and borrow money and take care of financial affairs.",
+        "Something from which other things extend; a foundation.",
+        "Mouth of bird.",
+        "Physical frame.",
+        "A collection of sheets of paper bound together to hinge at one edge, containing printed or written material, pictures, etc.",
+        "A telephone conversation.",
+        "A playing card.",
+        "Grief, sorrow.",
+        "An actual event, situation, or fact.",
+        "Money in the form of bills and coins, as opposed to checks or electronic transactions.",
+        "A large settlement, bigger than a town; sometimes with a specific legal definition, depending on the place.",
+        "An association of members joining together for some common purpose, especially sports or recreation.",
+        "To incur a charge of; to require payment of a (specified) price.",
+        "Phoenix dactylifera.",
+        "A transaction.",
+        "A portal of entry into a building, room, or vehicle.",
+        "That which one is morally or legally obligated to do.",
+        "One of the four principal compass points.",
+        "The boundary line of a surface.",
+        "The front part of the head of a human or other animal, featuring the eyes, nose and mouth, and the surrounding area.",
+        "Something actual as opposed to invented.",
+        "A place where agricultural and similar activities take place, especially the growing of crops or the raising of livestock.",
+        "A strong, uncontrollable, unpleasant emotion or feeling caused by actual or perceived danger or threat.",
+        "A collection of papers collated and archived together.",
+        "A thin layer of some substance",
+        "A chemical reaction involving the bonding of oxygen with carbon or other fuel, with the production of heat and the presence of flame or smouldering.",
+        "A business partnership; the name under which it trades.",
+        "A cold-blooded vertebrate animal that lives in water, moving with the help of fins and breathing with gills.",
+        "Any solid substance that can be consumed by living organisms, especially by eating, in order to sustain life.",
+        "A biological structure found in many animals that is used for locomotion and that is frequently a separate organ at the terminal part of the leg.",
+        "(heading, physical) To do with shape.",
+        "A sum or source of money.",
+        "A playful or competitive activity.",
+        "A female child, adolescent, or a young woman.",
+        "A result that one is attempting to achieve.",
+        "A heavy yellow elemental metal of great value, with atomic number 79 and symbol Au.",
+        "A pigmented filament of keratin which grows from a follicle on the skin of humans and other mammals.",
+        "One of two usually roughly equal parts into which anything may be divided, or considered as divided.",
+        "A corridor; a hallway.",
+        "The part of the forelimb below the forearm or wrist in a human, and the corresponding part in many other animals.",
+        "The part of the body of an animal or human which contains the brain, mouth and main sense organs.",
+        "Action given to provide assistance; aid.",
+        "An elevated location smaller than a mountain.",
+        "A dwelling.",
+        "To want something to happen, with a sense of expectation that it might.",
+        "A time period of sixty minutes; one twenty-fourth of a day.",
+        "An abstract archetype of a given thing, as opposed to actual examples.",
+        "A coarse mediaeval coat of defence, especially one made of leather.",
+        "A name",
+        "Nice.",
+        "A male monarch; a man who heads a monarchy.",
+        "A defect or failing.",
+        "An aristocratic title for a woman.",
+        "The part of Earth which is not covered by oceans or other bodies of water.",
+        "The state of being alive and living.",
+        "A path through two points.",
+        "The result of no longer possessing an object, a function, or a characteristic due to external causes or misplacement.",
+        "Strong affection.",
+        "Boundary, land within a boundary.",
+        "A male homosexual.",
+        "The ability for rational thought.",
+        "A failure to hit.",
+        "The act of moving; a movement.",
+        "Any nounal word or phrase which indicates a particular person, place, class, or thing.",
+        "A requirement for something; something needed.",
+        "New information of interest.",
+        "A symbol or annotation.",
+        "One of the many pieces of paper bound together within a book or similar document.",
+        "An ache or bodily suffering, or an instance of this; an unpleasant sensation, resulting from a derangement of functions, disease, or injury by violence; hurt.",
+        "Two similar or identical things taken together; often followed by of.",
+        "An area of land set aside for environment preservation or recreation.",
+        "A portion; a component.",
+        "To change place.",
+        "A trail for the use of, or worn by, pedestrians."
+    )
 
-    // Returns a random four letter word from the list in all caps
-    fun getRandomFourLetterWord(): String {
-        val allWords = getAllFourLetterWords()
-        val randomNumber = (allWords.indices).shuffled().last()
-        return allWords[randomNumber].uppercase()
+    // Returns a random four letter word from the list in all caps and the hint
+    fun getRandomFourLetterWord(): Array<String> {
+        val randomNumber = (fourLetterWords.indices).shuffled().last()
+        return arrayOf(fourLetterWords[randomNumber].uppercase(), fourLetterWordsHint[randomNumber])
     }
 }

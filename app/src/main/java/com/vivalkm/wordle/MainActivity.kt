@@ -10,7 +10,6 @@ import android.widget.*
 import androidx.core.view.isVisible
 import nl.dionsegijn.konfetti.KonfettiView
 import nl.dionsegijn.konfetti.models.Shape
-import nl.dionsegijn.konfetti.models.Shape.Companion.RECT
 import nl.dionsegijn.konfetti.models.Size
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var confettiView: KonfettiView
 
     private lateinit var targetWord: String
+    private lateinit var targetHint: String
     private var counter = 0
     private var winStreak = 0
 
@@ -68,13 +68,6 @@ class MainActivity : AppCompatActivity() {
         resultTextView = findViewById(R.id.resultTextView)
         targetWordTextView = findViewById(R.id.targetWordTextView)
 
-        winImage = findViewById(R.id.winImg)
-        loseImage = findViewById(R.id.loseImg)
-
-        guessBtn = findViewById(R.id.guessBtn)
-        resetBtn = findViewById(R.id.resetBtn)
-        guessWordEditText = findViewById(R.id.guessWordEditText)
-
         textViews = arrayOf(
             guess1TextView,
             guess1WordTextView,
@@ -88,10 +81,17 @@ class MainActivity : AppCompatActivity() {
             guess3WordTextView,
             guess3CheckTextView,
             guess3CheckResultTextView,
-            targetWordTextView,
             resultTextView
         )
 
+        // user interaction
+        guessBtn = findViewById(R.id.guessBtn)
+        resetBtn = findViewById(R.id.resetBtn)
+        guessWordEditText = findViewById(R.id.guessWordEditText)
+
+        // result
+        winImage = findViewById(R.id.winImg)
+        loseImage = findViewById(R.id.loseImg)
         winStreakTextView = findViewById(R.id.winStreakTextView)
         confettiView = findViewById(R.id.confettiView)
 
@@ -99,7 +99,6 @@ class MainActivity : AppCompatActivity() {
             curGuessWord = guessWordEditText.text.toString().uppercase()
             hideKeyboard(this)
             guessWordEditText.setText("")
-
             if (!isValidWord(curGuessWord)) {
                 Toast.makeText(
                     it.context,
@@ -177,18 +176,9 @@ class MainActivity : AppCompatActivity() {
      */
     private fun showResult() {
         if (targetWord == curGuessWord) {
-            // confetti animation
-            confettiView.build()
-                .addColors(Color.RED, Color.YELLOW, Color.MAGENTA)
-                .setDirection(0.0, 359.0)
-                .setSpeed(1f, 5f)
-                .setFadeOutEnabled(true)
-                .setTimeToLive(2000L)
-                .addShapes(Shape.Square, Shape.Circle)
-                .addSizes(Size(12, 5F))
-                .setPosition(-50f, confettiView.width + 50f, -50f, -50f)
-                .streamFor(300, 5000L)
+            makeConfetti()
 
+            // result message and image
             resultTextView.text = getString(R.string.winText)
             winImage.isVisible = true
 
@@ -197,12 +187,18 @@ class MainActivity : AppCompatActivity() {
             winStreakTextView.isVisible = true
             winStreakTextView.text = "You've made $winStreak wins in a row!"
         } else {
+            // result message and image
             resultTextView.text = getString(R.string.loseText)
             loseImage.isVisible = true
+
             winStreak = 0
             winStreakTextView.isVisible = false
         }
-        targetWordTextView.isVisible = true
+        // show target word
+        targetWordTextView.text = targetWord
+        targetWordTextView.textSize = 40f
+
+        // update user interaction
         guessBtn.isVisible = false
         resetBtn.isVisible = true
         resultTextView.isVisible = true
@@ -219,15 +215,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         // reset target word
-        targetWord = FourLetterWordList.getRandomFourLetterWord()
-        targetWordTextView.text = targetWord
+        var targetWordNHint = FourLetterWordList.getRandomFourLetterWord()
+        targetWord = targetWordNHint[0]
+        targetHint = targetWordNHint[1]
+
+        // show hint
+        targetWordTextView.text = targetHint
+        targetWordTextView.textSize = 20f
+        targetWordTextView.isElegantTextHeight = true
 
         // reset counter
         counter = 0
 
+        // reset buttons
         guessBtn.isVisible = true
         resetBtn.isVisible = false
 
+        // hide result images
         winImage.isVisible = false
         loseImage.isVisible = false
     }
@@ -275,5 +279,21 @@ class MainActivity : AppCompatActivity() {
             if (c < 'A' || c > 'Z') return false
         }
         return true
+    }
+
+    /**
+     * confetti animation
+     */
+    private fun makeConfetti() {
+        confettiView.build()
+            .addColors(Color.RED, Color.YELLOW, Color.MAGENTA)
+            .setDirection(0.0, 359.0)
+            .setSpeed(1f, 5f)
+            .setFadeOutEnabled(true)
+            .setTimeToLive(2000L)
+            .addShapes(Shape.Square, Shape.Circle)
+            .addSizes(Size(12, 5F))
+            .setPosition(-50f, confettiView.width + 50f, -50f, -50f)
+            .streamFor(300, 5000L)
     }
 }
