@@ -5,10 +5,7 @@ import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.view.isVisible
 
 class MainActivity : AppCompatActivity() {
@@ -26,19 +23,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var guess3CheckResultTextView: TextView
     private lateinit var resultTextView: TextView
     private lateinit var targetWordTextView: TextView
-    private lateinit var textViews:Array<TextView>
+    private lateinit var textViews: Array<TextView>
+
+    private lateinit var winImage: ImageView
+    private lateinit var loseImage: ImageView
 
     private lateinit var guessBtn: Button
     private lateinit var resetBtn: Button
     private lateinit var guessWordEditText: EditText
 
-    private lateinit var targetWord:String
+    private lateinit var targetWord: String
     private var counter = 0
 
-    private lateinit var guessWord1:String
-    private lateinit var guessWord2:String
-    private lateinit var guessWord3:String
-    private lateinit var curGuessWord:String
+    private lateinit var guessWord1: String
+    private lateinit var guessWord2: String
+    private lateinit var guessWord3: String
+    private lateinit var curGuessWord: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +58,10 @@ class MainActivity : AppCompatActivity() {
         guess3CheckResultTextView = findViewById(R.id.guess3CheckResultTextView)
         resultTextView = findViewById(R.id.resultTextView)
         targetWordTextView = findViewById(R.id.targetWordTextView)
-        
+
+        winImage = findViewById(R.id.winImg)
+        loseImage = findViewById(R.id.loseImg)
+
         guessBtn = findViewById(R.id.guessBtn)
         resetBtn = findViewById(R.id.resetBtn)
         guessWordEditText = findViewById(R.id.guessWordEditText)
@@ -156,8 +159,10 @@ class MainActivity : AppCompatActivity() {
     private fun showResult() {
         if (targetWord == curGuessWord) {
             resultTextView.text = getString(R.string.winText)
+            winImage.isVisible = true
         } else {
             resultTextView.text = getString(R.string.loseText)
+            loseImage.isVisible = true
         }
         resultTextView.isVisible = true
     }
@@ -181,8 +186,12 @@ class MainActivity : AppCompatActivity() {
 
         guessBtn.isVisible = true
         resetBtn.isVisible = false
+
+        winImage.isVisible = false
+        loseImage.isVisible = false
+
     }
-    
+
     /**
      * Parameters / Fields:
      *   wordToGuess : String - the target word the user is trying to guess
